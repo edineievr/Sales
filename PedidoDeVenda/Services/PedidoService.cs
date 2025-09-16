@@ -1,10 +1,11 @@
 ﻿using PedidoDeVenda.Entities;
 using PedidoDeVenda.Entities.Exceptions;
 using PedidoDeVenda.Repositories.Interfaces;
+using PedidoDeVenda.Services.Interfaces;
 
 namespace PedidoDeVenda.Services
 {
-    public class PedidoService
+    public class PedidoService : IPedidoService
     {
         private readonly IPedidoRepository _pedidos;
 
@@ -13,16 +14,20 @@ namespace PedidoDeVenda.Services
             _pedidos = repository;
         }
 
-        public void CriarPedido(Pedido pedido)
+        public void CriarPedido(int id)
         {
-            if (pedido == null)
+            var p = _pedidos.BuscaPorId(id);
+
+            if (p == null)
             {
-                throw new DomainException("Pedido não pode ser nulo");
+                throw new DomainException("Pedido ja criado!");
             }
-
-            _pedidos.CriarPedido(pedido);
+            else
+            {
+                _pedidos.CriarPedido(p);
+            }
+                
         }
-
         public void RemoverPedido(int id)
         {
             var p = _pedidos.BuscaPorId(id);
@@ -33,6 +38,18 @@ namespace PedidoDeVenda.Services
             }
 
             _pedidos.RemoverPedido(id);
+        }
+
+        public List<Pedido> ListarTodos()
+        {
+            var pedidos = _pedidos.ListarTodos();
+
+            if (pedidos.Count == 0)
+            {
+                throw new DomainException("Não há pedidos para listagem");
+            }
+
+            return pedidos;
         }
 
         public Pedido BuscarPorId(int id)
@@ -47,10 +64,10 @@ namespace PedidoDeVenda.Services
             return p;
         }
 
-        public void AdicionarItem(int id, ItemPedido item)
+        public void AdicionarItem(int idPedido, ItemPedido item)
         {
 
-            var p = _pedidos.BuscaPorId(id);
+            var p = _pedidos.BuscaPorId(idPedido);
 
             if (p == null)
             {
@@ -60,9 +77,9 @@ namespace PedidoDeVenda.Services
             p.AdicionaItem(item);
         }
 
-        public void RemoverItem(int id, int idItem)
+        public void RemoverItem(int idPedido, int idItem)
         {
-            var p = BuscarPorId(id);
+            var p = BuscarPorId(idPedido);
 
             if (p == null)
             {

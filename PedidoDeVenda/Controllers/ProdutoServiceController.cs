@@ -8,7 +8,7 @@ using PedidoDeVenda.Entities.Exceptions;
 
 namespace PedidoDeVenda.Controllers
 {
-    [Route("api/Produto")]
+    [Route("api/produto")]
     [ApiController]
     public class ProdutoServiceController : ControllerBase
     {
@@ -43,7 +43,7 @@ namespace PedidoDeVenda.Controllers
             }
             catch (DomainException)
             {
-                return NotFound();
+                return NotFound("Produto não encontrado.");
             }
         }
 
@@ -58,7 +58,7 @@ namespace PedidoDeVenda.Controllers
             }
             catch (DomainException)
             {
-                return BadRequest();
+                return BadRequest("Não é possível gravar um produto vazio.");
             }
         }
 

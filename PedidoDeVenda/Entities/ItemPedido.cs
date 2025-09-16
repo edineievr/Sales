@@ -7,8 +7,7 @@ namespace PedidoDeVenda.Entities
         public int Id { get; set; }
         public Produto Produto { get; set; }
         public int Quantidade { get; set; }
-
-        public decimal PrecoUnitario = 0;
+        public decimal PrecoUnitario { get; private set; }
 
         public ItemPedido(Produto produto, int quantidade, decimal precoUnitario)
         {
@@ -34,7 +33,6 @@ namespace PedidoDeVenda.Entities
 
         public decimal TotalItem()
         {         
-
             decimal total = Quantidade * PrecoUnitario;
 
             return total;

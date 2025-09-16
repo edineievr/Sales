@@ -67,6 +67,16 @@ namespace PedidoDeVenda.Entities
             return total;
         }
 
+        public void GravaPedidoComItens()
+        {
+            if (Itens.Count == 0)
+            {
+                throw new DomainException("Não é possível gravar um pedido sem itens.");
+            }
+
+            Status = StatusPedido.Aberto;
+        }
+
         public void CancelaPedido()
         {
             Status = StatusPedido.Cancelado;
@@ -74,6 +84,11 @@ namespace PedidoDeVenda.Entities
 
         public void FinalizaPedido()
         {
+            if (Itens.Count == 0)
+            {
+                throw new DomainException("Não é possível finalizar um pedido sem itens.");
+            }
+
             Status = StatusPedido.Finalizado;
         }
     }

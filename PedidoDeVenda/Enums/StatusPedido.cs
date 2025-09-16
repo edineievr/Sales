@@ -3,6 +3,7 @@
     public enum StatusPedido
     {
         Pendente,
+        Aberto,
         Finalizado,
         Cancelado
     }
