@@ -1,9 +1,9 @@
 ﻿using Pedido.Domain.Interfaces;
-using PedidoDeVenda.Entities;
-using PedidoDeVenda.Entities.Exceptions;
-using PedidoDeVenda.Repositories.Interfaces;
+using Pedido.Domain.Entities;
+using Pedido.Domain.Entities.Exceptions;
+using Pedido.Domain.Repositories.Interfaces;
 
-namespace PedidoDeVenda.Services
+namespace Pedido.Domain.Services
 {
     public class PedidoService : IPedidoService
     {
