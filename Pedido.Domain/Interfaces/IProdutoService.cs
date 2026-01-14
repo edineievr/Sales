@@ -1,6 +1,6 @@
 ﻿using PedidoDeVenda.Entities;
 
-namespace PedidoDeVenda.Services.Interfaces
+namespace Pedido.Domain.Interfaces
 {
     public interface IProdutoService
     {

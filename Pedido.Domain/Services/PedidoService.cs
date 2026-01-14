@@ -1,7 +1,7 @@
-﻿using PedidoDeVenda.Entities;
+﻿using Pedido.Domain.Interfaces;
+using PedidoDeVenda.Entities;
 using PedidoDeVenda.Entities.Exceptions;
 using PedidoDeVenda.Repositories.Interfaces;
-using PedidoDeVenda.Services.Interfaces;
 
 namespace PedidoDeVenda.Services
 {
