@@ -20,7 +20,7 @@
     <PackageReference Include="Shouldly" Version="4.3.0" />
   </ItemGroup>
 
-  <ItemGroup>    
+  <ItemGroup>
     <ProjectReference Include="..\Sales.Domain\Sales.Domain.csproj" />
   </ItemGroup>
 

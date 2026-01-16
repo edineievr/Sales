@@ -1,6 +1,6 @@
 using Sales.Domain.Orders.Entities;
-using Shouldly;
 using Sales.Domain.Orders.Entities.Enums;
+using Shouldly;
 
 namespace Sales.Tests.Orders
 {
@@ -18,7 +18,7 @@ namespace Sales.Tests.Orders
         [Test]
         public void When_NewOrderIsCreated_Should_HaveNoItems()
         {
-            var order = new Order.Domain.Order.Entities.Order();
+            var order = new Order();
             order.Items.Count.ShouldBe(0);
         }
 

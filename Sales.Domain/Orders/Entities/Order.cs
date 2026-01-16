@@ -1,6 +1,6 @@
-﻿using Order.Domain.Orders.Entities.Enums;
+﻿using Sales.Domain.Orders.Entities.Enums;
 
-namespace Order.Domain.Orders.Entities
+namespace Sales.Domain.Orders.Entities
 {
     public class Order
     {

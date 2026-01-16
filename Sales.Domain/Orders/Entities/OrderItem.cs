@@ -1,4 +1,4 @@
-﻿namespace Order.Domain.Orders.Entities
+﻿namespace Sales.Domain.Orders.Entities
 {
     public class OrderItem(long productId, decimal unitPrice, decimal quantity)
     {

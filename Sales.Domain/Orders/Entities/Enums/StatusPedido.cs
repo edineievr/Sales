@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Order.Domain.Orders.Entities.Enums
+namespace Sales.Domain.Orders.Entities.Enums
 {
     public enum OrderStatus
     {
