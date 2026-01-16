@@ -3,5 +3,5 @@
   <Project Path="Sales.Application/Sales.Application.csproj" />
   <Project Path="Sales.Domain/Sales.Domain.csproj" />
   <Project Path="Sales.Infrastructure/Sales.Infrastrucute.csproj" />
-  <Project Path="Sales.Tests/Sales.Tests.csproj" />
+  <Project Path="Sales.Tests/Sales.Tests.Unit.csproj" />
 </Solution>

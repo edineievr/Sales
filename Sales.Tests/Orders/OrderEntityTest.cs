@@ -2,7 +2,7 @@ using Sales.Domain.Orders.Entities;
 using Sales.Domain.Orders.Entities.Enums;
 using Shouldly;
 
-namespace Sales.Tests.Orders
+namespace Sales.Tests.Unit.Orders
 {
     [TestFixture]
     public class OrderEntityTest
@@ -21,7 +21,5 @@ namespace Sales.Tests.Orders
             var order = new Order();
             order.Items.Count.ShouldBe(0);
         }
-
-
     }
 }
