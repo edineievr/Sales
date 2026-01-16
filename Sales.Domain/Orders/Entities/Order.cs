@@ -1,4 +1,5 @@
 ﻿using Sales.Domain.Orders.Entities.Enums;
+using Sales.Domain.Orders.Exceptions;
 
 namespace Sales.Domain.Orders.Entities
 {
@@ -15,12 +16,17 @@ namespace Sales.Domain.Orders.Entities
         public Order()
         {
             _items = [];
-            Status = OrderStatus.Pending;
+            Status = OrderStatus.Open;
             CreationDate = DateTime.UtcNow;
         }
 
         public void AddItem(long productId, decimal unitPrice, decimal quantity)
         {
+            if (!IsEditable())
+            {
+                throw new OrderIsNotEditableException(Status);
+            }
+
             _items.Add(new OrderItem(productId, unitPrice, quantity));
         }
 
@@ -31,5 +37,19 @@ namespace Sales.Domain.Orders.Entities
             _items.Remove(item);
         }
 
+        public bool IsEditable()
+        {
+            return Status == OrderStatus.Open;
+        }
+
+        public void InvoiceOrder()
+        {
+            if (!IsEditable())
+            {
+                throw new OrderIsNotEditableException(Status);
+            }
+
+            Status = OrderStatus.Invoiced;
+        }
     }
 }

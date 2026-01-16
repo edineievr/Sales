@@ -4,10 +4,10 @@ namespace Sales.Domain.Orders.Entities.Enums
 {
     public enum OrderStatus
     {
-        [Description("Pending order")]
-        Pending = 0,
         [Description("Open order")]
-        Open = 1,
+        Open = 0,
+        [Description("Invoiced order")]
+        Invoiced = 1,
         [Description("Cancelled order")]
         Cancelled = 2
     }
