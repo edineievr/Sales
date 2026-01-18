@@ -54,12 +54,23 @@ namespace Sales.Domain.Orders.Entities
                 throw new OrderIsNotEditableException(Status);
             }
 
-            if (!_items.Any())
+            if (_items.Count == 0)
             {
                 throw new OrderWithoutItemsException();
             }
 
             Status = OrderStatus.Invoiced;
+            InvoiceDate = DateTime.UtcNow;
+        }
+
+        public void ReverseToOpen()
+        {
+            if (Status != OrderStatus.Invoiced)
+            {
+                throw new OrderIsNotReversibleException(Status);
+            }
+
+            Status = OrderStatus.Open;
         }
     }
 }

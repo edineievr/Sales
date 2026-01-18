@@ -22,6 +22,11 @@ namespace Sales.Domain.Orders.Entities
                 throw new InvalidOrderItemQuantityException(quantity);
             }
 
+            if (productId <= 0)
+            {
+                throw new InvalidOrderItemProductIdException(productId);
+            }
+
             ProductId = productId;
             Quantity = quantity;
             UnitPrice = unitPrice;

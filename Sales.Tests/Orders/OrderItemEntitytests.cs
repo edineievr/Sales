@@ -8,7 +8,7 @@ namespace Sales.Tests.Unit.Orders
     public class OrderItemEntityTests
     {
         [Test]
-        public void When_NewOrderItemIsCreatedWithInvalidUnitPrice_Should_ThrowInvalidOrderItemUnitPriceException()
+        public void When_NewOrderItemIsCreatedWithInvalidUnitPrice_Should_ThrowException()
         {
             var productId = 1L;
             var invalidUnitPrice = 0m;
@@ -21,7 +21,7 @@ namespace Sales.Tests.Unit.Orders
         }
 
         [Test]
-        public void When_NewOrderItemIsCreatedWithInvalidQuantity_Should_ThrowInvalidOrderItemQuantityException()
+        public void When_NewOrderItemIsCreatedWithInvalidQuantity_Should_ThrowException()
         {
             var productId = 1L;
             var unitPrice = 10m;
@@ -30,6 +30,19 @@ namespace Sales.Tests.Unit.Orders
             Should.Throw<InvalidOrderItemQuantityException>(() =>
             {
                 var orderItem = new OrderItem(productId, unitPrice, invalidQuantity);
+            });
+        }
+
+        [Test]
+        public void When_NewOrderItemIsCreatedWithInvalidProductId_Should_ThrowException()
+        {
+            var invalidProductId = 0L;
+            var unitPrice = 10m;
+            var quantity = 5m;
+
+            Should.Throw<InvalidOrderItemProductIdException>(() =>
+            {
+                var orderItem = new OrderItem(invalidProductId, unitPrice, quantity);
             });
         }
     }

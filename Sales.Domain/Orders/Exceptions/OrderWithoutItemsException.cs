@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Sales.Domain.Orders.Exceptions
 {
-    public class OrderWithouItemsException : DomainException
+    public class OrderWithoutItemsException : DomainException
     {
-        public OrderWithouItemsException() : base("The order must have at least one item to be invoiced.")
+        public OrderWithoutItemsException() : base("The order must have at least one item to be invoiced.")
         {
         }
     }
