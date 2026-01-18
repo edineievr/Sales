@@ -32,7 +32,12 @@ namespace Sales.Domain.Orders.Entities
 
         public void RemoveItem(long idItem)
         {
-            var item = _items.FirstOrDefault(item => item.Id == idItem) ?? throw new Exception("Item not found");
+            if (!IsEditable())
+            {
+                throw new OrderIsNotEditableException(Status);
+            }
+
+            var item = _items.FirstOrDefault(item => item.Id == idItem) ?? throw new OrderItemNotFoundException(idItem);
 
             _items.Remove(item);
         }
@@ -47,6 +52,11 @@ namespace Sales.Domain.Orders.Entities
             if (!IsEditable())
             {
                 throw new OrderIsNotEditableException(Status);
+            }
+
+            if (!_items.Any())
+            {
+                throw new OrderWithoutItemsException();
             }
 
             Status = OrderStatus.Invoiced;
