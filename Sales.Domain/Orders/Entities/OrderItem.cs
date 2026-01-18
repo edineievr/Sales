@@ -10,7 +10,6 @@ namespace Sales.Domain.Orders.Entities
         public long ProductId { get; private set; }
         public decimal Quantity { get; private set; }
         public decimal UnitPrice { get; private set; }
-        public decimal LiquidPrice { get; set; }
         public Discount? Discount { get; private set; }
         public decimal TotalPrice => CalculateTotalPrice();
 

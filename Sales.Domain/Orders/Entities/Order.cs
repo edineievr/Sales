@@ -12,7 +12,7 @@ namespace Sales.Domain.Orders.Entities
         public DateTime CreationDate { get; private set; }
         public DateTime? InvoiceDate { get; private set; }
         public decimal TotalItemsValue => _items.Sum(item => item.TotalPrice);
-        public Discount? Discount { get; set; }
+        public Discount? Discount { get; private set; }
         public OrderStatus Status { get; set; }
 
         public Order()
@@ -82,12 +82,24 @@ namespace Sales.Domain.Orders.Entities
 
         public void SetDiscount(Discount discount)
         {
+            if (!IsEditable())
+            {
+                throw new OrderIsNotEditableException(Status);
+            }
+
             Discount = discount;
         }
 
         public decimal AppyDiscount(decimal amount)
         {
+            if (!IsEditable())
+            {
+                throw new OrderIsNotEditableException(Status);
+            }
+
             return Discount == null ? amount : Discount.ApplyDiscount(amount);
         }
+
+        //Todo: add tests to validate new discount behavior
     }
 }
