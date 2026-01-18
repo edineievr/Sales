@@ -8,7 +8,7 @@ namespace Sales.Domain.Orders.Entities.Enums
         Open = 0,
         [Description("Invoiced order")]
         Invoiced = 1,
-        [Description("Cancelled order")]
-        Cancelled = 2
+        [Description("Canceled order")]
+        Canceled = 2
     }
 }

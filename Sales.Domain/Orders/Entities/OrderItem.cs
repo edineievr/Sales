@@ -1,5 +1,6 @@
 ﻿using Sales.Domain.Exceptions;
 using Sales.Domain.Orders.Exceptions;
+using Sales.Domain.Orders.ValueObjects;
 
 namespace Sales.Domain.Orders.Entities
 {
@@ -9,6 +10,9 @@ namespace Sales.Domain.Orders.Entities
         public long ProductId { get; private set; }
         public decimal Quantity { get; private set; }
         public decimal UnitPrice { get; private set; }
+        public decimal LiquidPrice { get; set; }
+        public Discount? Discount { get; private set; }
+        public decimal TotalPrice => CalculateTotalPrice();
 
         public OrderItem(long productId, decimal unitPrice, decimal quantity)
         {
@@ -30,6 +34,23 @@ namespace Sales.Domain.Orders.Entities
             ProductId = productId;
             Quantity = quantity;
             UnitPrice = unitPrice;
+        }
+
+        public void ApplyDiscount(Discount discount)
+        {
+            Discount = discount;
+        }
+
+        public decimal CalculateTotalPrice()
+        {
+            var grossPrice = CalculateGrossPrice();
+
+            return Discount == null ? grossPrice : Discount.ApplyDiscount(grossPrice);
+        }
+
+        public decimal CalculateGrossPrice()
+        {
+            return UnitPrice * Quantity;
         }
     }
 }

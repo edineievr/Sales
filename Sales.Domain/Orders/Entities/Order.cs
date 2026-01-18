@@ -1,5 +1,6 @@
 ﻿using Sales.Domain.Orders.Entities.Enums;
 using Sales.Domain.Orders.Exceptions;
+using Sales.Domain.Orders.ValueObjects;
 
 namespace Sales.Domain.Orders.Entities
 {
@@ -10,7 +11,8 @@ namespace Sales.Domain.Orders.Entities
         public IReadOnlyCollection<OrderItem> Items => _items.AsReadOnly();
         public DateTime CreationDate { get; private set; }
         public DateTime? InvoiceDate { get; private set; }
-        public decimal TotalItemsValue => _items.Sum(item => item.UnitPrice * item.Quantity);
+        public decimal TotalItemsValue => _items.Sum(item => item.TotalPrice);
+        public Discount? Discount { get; set; }
         public OrderStatus Status { get; set; }
 
         public Order()
@@ -71,6 +73,21 @@ namespace Sales.Domain.Orders.Entities
             }
 
             Status = OrderStatus.Open;
+        }
+
+        public void CancelOrder()
+        { 
+            Status = OrderStatus.Canceled;
+        }
+
+        public void SetDiscount(Discount discount)
+        {
+            Discount = discount;
+        }
+
+        public decimal AppyDiscount(decimal amount)
+        {
+            return Discount == null ? amount : Discount.ApplyDiscount(amount);
         }
     }
 }

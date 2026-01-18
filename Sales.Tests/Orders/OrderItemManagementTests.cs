@@ -1,4 +1,5 @@
 ﻿using Sales.Domain.Orders.Entities;
+using Sales.Domain.Orders.Entities.Enums;
 using Sales.Domain.Orders.Exceptions;
 using Shouldly;
 
@@ -187,6 +188,39 @@ namespace Sales.Tests.Unit.Orders
             {
                 order.InvoiceOrder();
             });
+        }
+
+        [Test]
+        public void When_InvoicingOrder_Should_ChangeStatusToInvoiced()
+        {
+            var order = new Order();
+            order.AddItem(1L, 10m, 2m);
+            order.InvoiceOrder();
+
+            order.Status.ShouldBe(OrderStatus.Invoiced);
+        }
+
+        [Test]
+        public void When_CancelingOrder_Should_ChangeStatusToCanceled()
+        {
+            var order = new Order();
+            order.AddItem(1L, 10m, 2m);
+
+            order.CancelOrder();
+
+            order.Status.ShouldBe(OrderStatus.Canceled);
+        }
+
+        [Test]
+        public void When_ReversingToOpenStatus_Should_AllowEditingAgain()
+        {
+            var order = new Order();
+            order.AddItem(1L, 10m, 2m);
+
+            order.InvoiceOrder();
+            order.ReverseToOpen();
+
+            order.IsEditable().ShouldBeTrue();
         }
     }
 }

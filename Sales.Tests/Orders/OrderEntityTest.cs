@@ -30,5 +30,24 @@ namespace Sales.Tests.Unit.Orders
 
             order.InvoiceDate.ShouldBeNull();
         }
+
+        [Test]
+        public void When_NewOrderIsCreated_Should_HaveCreationDateSet()
+        {
+            var beforeCreation = DateTime.UtcNow;
+            var order = new Order();
+            var afterCreation = DateTime.UtcNow;
+
+            order.CreationDate.ShouldBeGreaterThanOrEqualTo(beforeCreation);
+            order.CreationDate.ShouldBeLessThanOrEqualTo(afterCreation);
+        }
+
+        [Test]
+        public void When_NewOrderIsCreated_Should_HaveTotalItemsValueZero()
+        {
+            var order = new Order();
+
+            order.TotalItemsValue.ShouldBe(0m);
+        }
     }
 }
