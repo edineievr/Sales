@@ -12,3 +12,10 @@ method_shouldoutcome
 
 condition-shouldoutcome
 - emptyorder_should_havezerototal
+
+Notes:
+Exceção responde “qual regra foi violada”.
+Validator valida dados.
+Domínio valida regras.
+Construtor garante existência válida.
+Métodos garantem transições válidas.

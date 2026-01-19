@@ -235,5 +235,16 @@ namespace Sales.Tests.Unit.Orders
             order.Status.ShouldBe(OrderStatus.Open);
         }
 
+        [Test]
+        public void When_ReversingToOpenStatus_Should_ClearInvoiceDate()
+        {
+            var order = new Order();
+            order.AddItem(1L, 10m, 2m);
+
+            order.InvoiceOrder();
+            order.ReverseToOpen();
+
+            order.InvoiceDate.ShouldBeNull();
+        }
     }
 }

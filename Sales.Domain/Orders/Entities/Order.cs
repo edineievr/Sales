@@ -74,6 +74,7 @@ namespace Sales.Domain.Orders.Entities
             }
 
             Status = OrderStatus.Open;
+            InvoiceDate = null;
         }
 
         public void CancelOrder()
