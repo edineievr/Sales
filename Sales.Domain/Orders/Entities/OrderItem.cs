@@ -44,7 +44,9 @@ namespace Sales.Domain.Orders.Entities
         {
             var grossPrice = CalculateGrossPrice();
 
-            return Discount == null ? grossPrice : Discount.ApplyDiscount(grossPrice);
+            var totalPrice = Discount != null ? Discount.ApplyDiscount(grossPrice) : grossPrice;
+
+            return totalPrice > 0 ? totalPrice : throw new DiscountExceedsOrderItemValueException(Discount.Value);
         }
 
         public decimal CalculateGrossPrice()
