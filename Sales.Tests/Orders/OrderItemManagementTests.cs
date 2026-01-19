@@ -222,5 +222,18 @@ namespace Sales.Tests.Unit.Orders
 
             order.IsEditable().ShouldBeTrue();
         }
+
+        [Test]
+        public void When_ReversingToOpenStatus_Should_SetStatusToOpen()
+        {
+            var order = new Order();
+            order.AddItem(1L, 10m, 2m);
+
+            order.InvoiceOrder();
+            order.ReverseToOpen();
+
+            order.Status.ShouldBe(OrderStatus.Open);
+        }
+
     }
 }
