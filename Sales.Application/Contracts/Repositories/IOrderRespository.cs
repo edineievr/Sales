@@ -7,6 +7,6 @@ namespace Sales.Application.Contracts.Repositories
         public Order GetOrderById(long id);
         public void UpdateOrder(Order order);
         public void DeleteOrder(long id);
-        public long InsertOrder(Order order);
+        public void InsertOrder(Order order);
     }
 }

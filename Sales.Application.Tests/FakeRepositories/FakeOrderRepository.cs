@@ -3,7 +3,7 @@ using Sales.Domain.Orders.Entities;
 
 namespace Sales.Application.Tests.FakeRepositories
 {
-    public class FakeOrderRepository
+    public class FakeOrderRepository : IOrderRepository
     {
         private readonly List<Order> _orders;
         public FakeOrderRepository()
