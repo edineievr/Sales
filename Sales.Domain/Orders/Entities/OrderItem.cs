@@ -11,7 +11,7 @@ namespace Sales.Domain.Orders.Entities
         public decimal Quantity { get; private set; }
         public decimal UnitPrice { get; private set; }
         public Discount? Discount { get; private set; }
-        public decimal TotalPrice => CalculateTotalPrice();
+        public decimal TotalValue => CalculateTotalValue();
 
         public OrderItem(long productId, decimal unitPrice, decimal quantity)
         {
@@ -40,7 +40,7 @@ namespace Sales.Domain.Orders.Entities
             Discount = discount;
         }
 
-        public decimal CalculateTotalPrice()
+        public decimal CalculateTotalValue()
         {
             var grossPrice = CalculateGrossPrice();
 

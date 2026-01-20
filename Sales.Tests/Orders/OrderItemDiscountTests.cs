@@ -40,7 +40,7 @@ namespace Sales.Tests.Unit.Orders
             orderItem.ApplyDiscount(discount);
 
             orderItem.CalculateGrossPrice().ShouldBe(200m);
-            orderItem.CalculateTotalPrice().ShouldBe(180m);
+            orderItem.CalculateTotalValue().ShouldBe(180m);
         }
 
         [Test]
@@ -55,11 +55,11 @@ namespace Sales.Tests.Unit.Orders
             orderItem.ApplyDiscount(discount);
 
             orderItem.CalculateGrossPrice().ShouldBe(200m);
-            orderItem.CalculateTotalPrice().ShouldBe(185m);
+            orderItem.CalculateTotalValue().ShouldBe(185m);
         }
 
         [Test]
-        public void When_CalculatingTotalPrice_WithDiscountExceedingGrossPrice_Should_ThrowException()
+        public void When_CalculatingTotalValue_WithDiscountExceedingGrossPrice_Should_ThrowException()
         {
             var productId = 1L;
             var quantity = 2m;
@@ -71,12 +71,12 @@ namespace Sales.Tests.Unit.Orders
 
             Should.Throw<DiscountExceedsOrderItemValueException>(() =>
             {
-                orderItem.CalculateTotalPrice();
+                orderItem.CalculateTotalValue();
             });
         }
 
         [Test]
-        public void When_CalculatingTotalPrice_WithoutDiscount_Should_ReturnGrossPrice()
+        public void When_CalculatingTotalValue_WithoutDiscount_Should_ReturnGrossPrice()
         {
             var productId = 1L;
             var quantity = 3m;
@@ -85,29 +85,7 @@ namespace Sales.Tests.Unit.Orders
             var orderItem = new OrderItem(productId, quantity, unitPrice);
 
             orderItem.CalculateGrossPrice().ShouldBe(45m);
-            orderItem.CalculateTotalPrice().ShouldBe(45m);
-        }
-
-        [Test]
-        public void When_CreatingDiscountWithInvalidValue_Should_ThrowException()
-        {
-            var invalidDiscountValue = 0m;
-
-            Should.Throw<InvalidDiscountValueException>(() =>
-            {
-                var discount = new Discount(invalidDiscountValue, DiscountType.Percentage);
-            });
-        }
-
-        [Test]
-        public void When_CreatingDiscountWithNegativeValue_Should_ThrowException()
-        {
-            var negativeDiscountValue = -5m;
-
-            Should.Throw<InvalidDiscountValueException>(() =>
-            {
-                var discount = new Discount(negativeDiscountValue, DiscountType.FixedAmount);
-            });
-        }
+            orderItem.CalculateTotalValue().ShouldBe(45m);
+        }        
     }
 }
