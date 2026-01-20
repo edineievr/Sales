@@ -1,4 +1,4 @@
-﻿namespace Sales.Api.Application.UserCases.Exceptions
+﻿namespace Sales.Application.Exceptions
 {
     public class InvalidDiscountTypeException : Exception
     {

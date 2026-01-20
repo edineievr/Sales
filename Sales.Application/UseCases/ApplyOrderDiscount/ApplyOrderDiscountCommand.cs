@@ -1,7 +1,4 @@
-﻿using Sales.Domain.Orders.Enums;
-using Sales.Domain.Orders.ValueObjects;
-
-namespace Sales.Api.Application.UserCases.ApplyOrderDiscount
+﻿namespace Sales.Application.UseCases.ApplyOrderDiscount
 {
     public class ApplyOrderDiscountCommand
     {

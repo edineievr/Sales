@@ -1,4 +1,4 @@
-﻿namespace Sales.Api.Application.UserCases.ApplyOrderDiscount
+﻿namespace Sales.Application.UseCases.ApplyOrderDiscount
 {
     public class ApplyOrderDiscountResult
     {

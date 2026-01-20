@@ -119,8 +119,6 @@ namespace Sales.Domain.Orders.Entities
         public bool HasItemLevelDiscounts()
         {
             return _items.Any(item => item.HasDiscount());
-        }
-
-        //Todo: add tests to validate new discount behavior
+        }        
     }
 }
