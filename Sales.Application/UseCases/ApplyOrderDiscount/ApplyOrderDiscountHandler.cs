@@ -16,7 +16,6 @@ namespace Sales.Application.UseCases.ApplyOrderDiscount
 
         public ApplyOrderDiscountResult Handle(ApplyOrderDiscountCommand command)
         {
-
             var order = _repository.GetOrderById(command.OrderId) ?? throw new OrderNotFoundException(command.OrderId);
 
             if (!Enum.TryParse<DiscountType>(command.DiscountType, ignoreCase: true, out var discountType))
