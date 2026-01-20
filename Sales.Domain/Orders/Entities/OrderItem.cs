@@ -6,7 +6,8 @@ namespace Sales.Domain.Orders.Entities
 {
     public class OrderItem
     {
-        public long Id { get; set; }
+        public long Id { get; protected set; }
+        public long OrderId { get; protected set; }
         public long ProductId { get; private set; }
         public decimal Quantity { get; private set; }
         public decimal UnitPrice { get; private set; }
@@ -38,6 +39,11 @@ namespace Sales.Domain.Orders.Entities
         public void ApplyDiscount(Discount discount)//todo: add validation to discounts
         {
             Discount = discount;
+        }
+
+        public void RemoveDiscount()
+        {
+            Discount = null;
         }
 
         public decimal CalculateTotalValue()

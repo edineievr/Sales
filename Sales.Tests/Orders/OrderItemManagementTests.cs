@@ -12,18 +12,15 @@ namespace Sales.Tests.Unit.Orders
         public void When_AddingItemToEditableOrder_Should_Succeed()
         {
             var order = new Order();
-            var productId = 1L;
-            var unitPrice = 10m;
-            var quantity = 2m;
 
-            order.AddItem(productId, unitPrice, quantity);
+            order.AddItem(1L, 10m, 2m);
             order.Items.Count.ShouldBe(1);
 
             var item = order.Items.First();
 
-            item.ProductId.ShouldBe(productId);
-            item.UnitPrice.ShouldBe(unitPrice);
-            item.Quantity.ShouldBe(quantity);
+            item.ProductId.ShouldBe(1L);
+            item.UnitPrice.ShouldBe(10m);
+            item.Quantity.ShouldBe(2m);
         }
 
         [Test]
@@ -46,11 +43,7 @@ namespace Sales.Tests.Unit.Orders
         {
             var order = new Order();
 
-            var productId = 1L;
-            var unitPrice = 10m;
-            var quantity = 2m;
-
-            order.AddItem(productId, unitPrice, quantity);
+            order.AddItem(1L, 10m, 2m);
             var itemId = order.Items.First().Id;
 
             order.RemoveItem(itemId);
@@ -62,14 +55,8 @@ namespace Sales.Tests.Unit.Orders
         {
             var order = new Order();
 
-            var productId = 1L;
-            var unitPrice = 10m;
-            var quantity = 2m;
-
-            order.AddItem(productId, unitPrice, quantity);
-
+            order.AddItem(1L, 10m, 2m);
             var itemId = order.Items.First().Id;
-
             order.InvoiceOrder();
 
             Should.Throw<OrderIsNotEditableException>(() =>
@@ -245,6 +232,18 @@ namespace Sales.Tests.Unit.Orders
             order.ReverseToOpen();
 
             order.InvoiceDate.ShouldBeNull();
+        }
+
+        [Test]
+        public void When_AddingItemsWithDecimalValues_Should_CalculateTotalItemsValueCorrectly()
+        {
+            var order = new Order();
+
+            order.AddItem(1L, 10.33m, 2.5m);  // Total: 25.825
+            order.AddItem(2L, 7.99m, 3.75m);  // Total: 29.9625
+            order.AddItem(3L, 15.50m, 1.25m); // Total: 19.375
+
+            order.TotalItemsValue.ShouldBe(75.1625m);
         }
     }
 }

@@ -65,5 +65,37 @@ namespace Sales.Tests.Unit.Orders
                 var total = order.TotalOrderValue;
             });
         }
+
+        [Test]
+        public void When_RemovingDiscount_Should_RemoveDiscountFromOrder()
+        {
+            var order = new Order();
+
+            var discount = new Discount(20m, DiscountType.FixedAmount);
+            order.SetDiscount(discount);
+
+            order.RemoveDiscount();
+
+            order.Discount.ShouldBeNull();
+        }
+
+        [Test]
+        public void When_ApplyingOrderDiscount_WithItemLevelDiscount_Should_ThrowException()
+        {
+            var order = new Order();
+            order.AddItem(1L, 100m, 1m);
+            order.AddItem(2L, 50m, 2m);
+
+            var itemDiscount = new Discount(10m, DiscountType.Percentage);
+            order.Items.First().ApplyDiscount(itemDiscount);
+
+            var orderDiscount = new Discount(20m, DiscountType.FixedAmount);
+
+            order.Items.First().Discount.ShouldNotBeNull();
+            Should.Throw<OrderDiscountConflictException>(() => 
+            {
+                order.SetDiscount(orderDiscount);
+            });
+        }
     }
 }

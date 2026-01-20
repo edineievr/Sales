@@ -97,6 +97,16 @@ namespace Sales.Domain.Orders.Entities
             Discount = discount;
         }
 
+        public void RemoveDiscount()
+        {
+            if (!IsEditable())
+            {
+                throw new OrderIsNotEditableException(Status);
+            }
+
+            Discount = null;
+        }
+
         private decimal CalculateTotalOrderValue()
         {
             var total = TotalItemsValue;

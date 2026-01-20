@@ -18,6 +18,7 @@ namespace Sales.Domain.Orders.ValueObjects
             Value = discountValue;
             Type = type;
         }
+
         public decimal ApplyDiscount(decimal amount)
         {
             return Type switch
