@@ -1,10 +1,7 @@
-﻿using Sales.Domain.Orders.Entities.Enums;
+﻿using Sales.Domain.Orders.Enums;
 using Sales.Domain.Orders.Exceptions;
 using Sales.Domain.Orders.ValueObjects;
 using Shouldly;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Sales.Tests.Unit.Orders
 {
@@ -23,7 +20,7 @@ namespace Sales.Tests.Unit.Orders
         }
 
         [Test]
-        public void When_CreatingDiscountWithInvalidValue_Should_ThrowException()
+        public void When_CreatingPercentageDiscount_WithZeroValue_Should_ThrowException()
         {
             var invalidDiscountValue = 0m;
 
@@ -34,7 +31,7 @@ namespace Sales.Tests.Unit.Orders
         }
 
         [Test]
-        public void When_CreatingDiscountWithNegativeValue_Should_ThrowException()
+        public void When_CreatingFixedAmountDiscount_WithNegativeValue_Should_ThrowException()
         {
             var negativeDiscountValue = -5m;
 

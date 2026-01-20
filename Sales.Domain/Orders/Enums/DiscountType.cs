@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Sales.Domain.Orders.Entities.Enums
+namespace Sales.Domain.Orders.Enums
 {
     public enum DiscountType
     {

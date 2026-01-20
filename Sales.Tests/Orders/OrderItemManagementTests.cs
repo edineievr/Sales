@@ -1,5 +1,5 @@
 ﻿using Sales.Domain.Orders.Entities;
-using Sales.Domain.Orders.Entities.Enums;
+using Sales.Domain.Orders.Enums;
 using Sales.Domain.Orders.Exceptions;
 using Shouldly;
 

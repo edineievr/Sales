@@ -53,6 +53,11 @@ namespace Sales.Domain.Orders.Entities
         {
             return UnitPrice * Quantity;
         }
+
+        public bool HasDiscount()
+        {
+            return Discount != null;
+        }
     }
 }
 

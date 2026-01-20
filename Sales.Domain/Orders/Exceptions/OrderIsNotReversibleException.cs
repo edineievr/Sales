@@ -1,5 +1,5 @@
 ﻿using Sales.Domain.Exceptions;
-using Sales.Domain.Orders.Entities.Enums;
+using Sales.Domain.Orders.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;

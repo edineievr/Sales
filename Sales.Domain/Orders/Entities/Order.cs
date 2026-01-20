@@ -1,4 +1,4 @@
-﻿using Sales.Domain.Orders.Entities.Enums;
+﻿using Sales.Domain.Orders.Enums;
 using Sales.Domain.Orders.Exceptions;
 using Sales.Domain.Orders.ValueObjects;
 
@@ -89,6 +89,11 @@ namespace Sales.Domain.Orders.Entities
                 throw new OrderIsNotEditableException(Status);
             }
 
+            if (HasItemLevelDiscounts())
+            {
+                throw new OrderDiscountConflictException();
+            }
+
             Discount = discount;
         }
 
@@ -99,6 +104,11 @@ namespace Sales.Domain.Orders.Entities
             total = Discount != null ? Discount.ApplyDiscount(total) : total;
 
             return total > 0 ? total : throw new DiscountExceedsOrderValueException(Discount.Value);
+        }
+
+        public bool HasItemLevelDiscounts()
+        {
+            return _items.Any(item => item.HasDiscount());
         }
 
         //Todo: add tests to validate new discount behavior

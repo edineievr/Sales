@@ -1,4 +1,4 @@
-﻿using Sales.Domain.Orders.Entities.Enums;
+﻿using Sales.Domain.Orders.Enums;
 using Sales.Domain.Orders.Exceptions;
 
 namespace Sales.Domain.Orders.ValueObjects
@@ -6,7 +6,7 @@ namespace Sales.Domain.Orders.ValueObjects
     public sealed class Discount
     {
         public decimal Value { get; private set; }
-        public DiscountType Type { get; set; }
+        public DiscountType Type { get; private set; }
 
         public Discount(decimal discountValue, DiscountType type)
         {
