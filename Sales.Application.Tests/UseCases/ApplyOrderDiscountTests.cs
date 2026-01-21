@@ -23,6 +23,9 @@ namespace Sales.Application.Tests.UseCases
             var order = new Order();
             order.AddItem(1, 100m, 1);
 
+            order.TotalItemsValue.ShouldBe(100m);
+            order.TotalOrderValue.ShouldBe(100m);
+
             repository.InsertOrder(order);
 
             var handler = new ApplyOrderDiscountHandler(repository);
@@ -44,6 +47,8 @@ namespace Sales.Application.Tests.UseCases
             updatedOrder.Discount.ShouldNotBeNull();
             updatedOrder.Discount.Value.ShouldBe(10m);
             updatedOrder.Discount.Type.ShouldBe(DiscountType.Percentage);
+            updatedOrder.TotalItemsValue.ShouldBe(100m);
+            updatedOrder.TotalOrderValue.ShouldBe(90m);
         }
 
         [Test]
