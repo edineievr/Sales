@@ -11,6 +11,7 @@ namespace Sales.Domain.Orders.Entities
         public IReadOnlyCollection<OrderItem> Items => _items.AsReadOnly();
         public DateTime CreationDate { get; private set; }
         public DateTime? InvoiceDate { get; private set; }
+        public DateTime? CancelationDate { get; set; }
         public decimal TotalItemsValue => _items.Sum(item => item.TotalValue);
         public decimal TotalOrderValue => CalculateTotalOrderValue();
         public Discount? Discount { get; private set; }
@@ -79,10 +80,16 @@ namespace Sales.Domain.Orders.Entities
 
         public void CancelOrder()
         { 
-            Status = OrderStatus.Canceled; //todo: add business rules for cancelation
+            if (Status == OrderStatus.Canceled)
+            {
+                throw new OrderIsNotEditableException(Status);
+            }
+
+            Status = OrderStatus.Canceled;
+            CancelationDate = DateTime.UtcNow;
         }
 
-        public void SetDiscount(Discount discount)// todo: add validation rules for discount
+        public void SetDiscount(Discount discount)
         {
             if (!IsEditable())
             {

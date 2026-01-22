@@ -32,6 +32,14 @@ namespace Sales.Tests.Unit.Orders
         }
 
         [Test]
+        public void When_NewOrderIsCreated_Should_CancelationDateBeNull()
+        {
+            var order = new Order();
+
+            order.CancelationDate.ShouldBeNull();
+        }
+
+        [Test]
         public void When_NewOrderIsCreated_Should_HaveCreationDateSet()
         {
             var beforeCreation = DateTime.UtcNow;
@@ -48,6 +56,41 @@ namespace Sales.Tests.Unit.Orders
             var order = new Order();
 
             order.TotalItemsValue.ShouldBe(0m);
+        }
+
+        [Test]
+        public void When_OrderIsInvoiced_Should_ChangeStatusToInvoiced()
+        {
+            var order = new Order();
+            order.AddItem(1, 10m, 2);
+
+            order.InvoiceOrder();
+
+            order.Status.ShouldBe(OrderStatus.Invoiced);
+        }
+
+        [Test]
+        public void When_OrderIsCanceled_Should_ChangeStatusToCanceled()
+        {
+            var order = new Order();
+
+            order.CancelOrder();
+
+            order.Status.ShouldBe(OrderStatus.Canceled);
+        }
+
+        [Test]
+        public void When_OrderIsCanceled_Should_SetCancelationDate()
+        {
+            var order = new Order();
+            var beforeCancelation = DateTime.UtcNow;
+
+            order.CancelOrder();
+            var afterCancelation = DateTime.UtcNow;
+
+            order.CancelationDate.ShouldNotBeNull();
+            order.CancelationDate.Value.ShouldBeGreaterThanOrEqualTo(beforeCancelation);
+            order.CancelationDate.Value.ShouldBeLessThanOrEqualTo(afterCancelation);
         }
     }
 }
