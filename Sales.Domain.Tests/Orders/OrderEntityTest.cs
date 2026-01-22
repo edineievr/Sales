@@ -8,7 +8,7 @@ namespace Sales.Tests.Unit.Orders
     public class OrderEntityTest
     {
         [Test]
-        public void When_NewOrderIsCreated_Should_StartWithInPendingState()
+        public void When_NewOrderIsCreated_Should_StartWithInOpenState()
         {
             var order = new Order();
 

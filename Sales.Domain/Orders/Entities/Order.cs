@@ -82,7 +82,7 @@ namespace Sales.Domain.Orders.Entities
         { 
             if (Status == OrderStatus.Canceled)
             {
-                throw new OrderIsNotEditableException(Status);
+                throw new OrderIsNotCancelableException(Status);
             }
 
             Status = OrderStatus.Canceled;
