@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Sales.Application.UseCases.CreateOrder
 {
-    public class OrderItemDto
+    public class CreateOrderItemDto
     {
         public long ProductId { get; set; }
         public decimal UnitPrice { get; set; }
@@ -12,7 +12,7 @@ namespace Sales.Application.UseCases.CreateOrder
         public decimal? DiscountValue { get; set; }
         public string? DiscountType { get; set; }
 
-        public OrderItemDto()
+        public CreateOrderItemDto()
         {
             DiscountType = null;
             DiscountValue = null;

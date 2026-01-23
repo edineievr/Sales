@@ -24,15 +24,23 @@ namespace Sales.Domain.Orders.Entities
             CreationDate = DateTime.UtcNow;
         }
 
-        public void AddItem(long productId, decimal unitPrice, decimal quantity)
+        public void AddItem(long productId, decimal unitPrice, decimal quantity, Discount? discount = null)
         {
             if (!IsEditable())
             {
                 throw new OrderIsNotEditableException(Status);
             }
 
-            _items.Add(new OrderItem(productId, unitPrice, quantity));
+            var item = new OrderItem(productId, unitPrice, quantity);
+
+            if (discount != null)
+            {
+                item.ApplyDiscount(discount);
+            }                
+
+            _items.Add(item);
         }
+
 
         public void RemoveItem(long idItem)
         {

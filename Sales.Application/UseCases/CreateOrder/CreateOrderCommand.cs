@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Sales.Application.UseCases.CreateOrder
+﻿namespace Sales.Application.UseCases.CreateOrder
 {
     public class CreateOrderCommand
     {
-        public List<OrderItemDto> Items { get; set; }
+        public List<CreateOrderItemDto> Items { get; set; }
         public decimal? DiscountValue { get; set; }
         public string? DiscountType { get; set; }
 
