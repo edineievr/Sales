@@ -13,7 +13,7 @@ namespace Sales.Application.UseCases.RemoveOrderDiscount
 
         public RemoveOrderDiscountResult Handle(RemoveOrderDiscountCommand command)
         {
-            var order = _repository.GetOrderById(command.OrderId) ?? throw new OrderNotFoundException(command.OrderId);
+            var order = _repository.GetById(command.OrderId) ?? throw new OrderNotFoundException(command.OrderId);
 
             order.RemoveDiscount();
 

@@ -10,13 +10,19 @@ namespace Sales.Application.Tests.FakeRepositories
         {
             _orders = [];
         }
-        
+
+        public IReadOnlyCollection<Order> GetAll()
+        {
+            return _orders;
+
+        }
+
         public void InsertOrder(Order order)
         {
             _orders.Add(order);
         }
 
-        public Order GetOrderById(long id)
+        public Order GetById(long id)
         {
             return _orders.FirstOrDefault(order => order.Id == id);
         }
@@ -26,7 +32,7 @@ namespace Sales.Application.Tests.FakeRepositories
             var index = _orders.FindIndex(o => o.Id == order.Id);
 
             if (index == -1)
-                throw new InvalidOperationException($"Order {order.Id} not found");
+                throw new InvalidOperationException($"Order {order.Id} not found");//todo: Add a custom exception for this case
 
             _orders[index] = order;
         }

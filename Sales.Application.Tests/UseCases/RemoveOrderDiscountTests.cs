@@ -36,7 +36,7 @@ namespace Sales.Application.Tests.UseCases
             // Act
             var result = handler.Handle(command);
 
-            var updatedOrder = repository.GetOrderById(order.Id);
+            var updatedOrder = repository.GetById(order.Id);
 
             updatedOrder.ShouldNotBeNull();
             updatedOrder.Discount.ShouldBeNull();

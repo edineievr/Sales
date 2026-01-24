@@ -41,7 +41,7 @@ namespace Sales.Application.Tests.UseCases
             handler.Handle(command);
 
             // Assert
-            var updatedOrder = repository.GetOrderById(order.Id);
+            var updatedOrder = repository.GetById(order.Id);
 
             updatedOrder.ShouldNotBeNull();
             updatedOrder.Discount.ShouldNotBeNull();
