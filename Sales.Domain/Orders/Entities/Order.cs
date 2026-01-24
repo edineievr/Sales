@@ -11,7 +11,7 @@ namespace Sales.Domain.Orders.Entities
         public IReadOnlyCollection<OrderItem> Items => _items.AsReadOnly();
         public DateTime CreationDate { get; private set; }
         public DateTime? InvoiceDate { get; private set; }
-        public DateTime? CancelationDate { get; set; }
+        public DateTime? CancelationDate { get; private set; }
         public decimal TotalItemsValue => _items.Sum(item => item.TotalValue);
         public decimal TotalOrderValue => CalculateTotalOrderValue();
         public Discount? Discount { get; private set; }

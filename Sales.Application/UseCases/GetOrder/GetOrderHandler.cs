@@ -16,7 +16,7 @@ namespace Sales.Application.UseCases.GetOrder
 
         public GetOrderResult Handle(GetOrderQuery query)
         {
-            var order = _repository.GetOrderById(query.OrderId) ?? throw new OrderNotFoundException(query.OrderId);
+            var order = _repository.GetById(query.OrderId) ?? throw new OrderNotFoundException(query.OrderId);
 
             var result = new GetOrderResult
             {
