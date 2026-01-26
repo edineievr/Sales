@@ -25,12 +25,12 @@
                 {
                     validator.Errors.Add("Order discount value must be greater than zero.");
                 }
-            }
 
-            if (string.IsNullOrWhiteSpace(command.DiscountType))
-            {
-                validator.Errors.Add("Order discount type must be specified.");
-            }
+                if (string.IsNullOrWhiteSpace(command.DiscountType))
+                {
+                    validator.Errors.Add("Order discount type must be specified.");
+                }
+            }            
 
             foreach (var item in command.Items)
             {

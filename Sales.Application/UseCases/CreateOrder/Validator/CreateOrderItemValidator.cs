@@ -17,11 +17,18 @@ namespace Sales.Application.UseCases.CreateOrder.Validator
             if (item.UnitPrice <= 0)
                 result.Errors.Add($"Item {item.ProductId}: unit price must be greater than zero.");
 
-            if (item.DiscountValue.HasValue && item.DiscountValue <= 0)
-                result.Errors.Add($"Item {item.ProductId}: discount value must be greater than zero.");
-
-            if (string.IsNullOrWhiteSpace(item.DiscountType))
-                result.Errors.Add($"Item {item.ProductId}: discount type must be specified.");
+            if (item.DiscountValue.HasValue)
+            {
+                if (item.DiscountValue <= 0)
+                {
+                    result.Errors.Add($"Item {item.ProductId}: discount value must be greater than zero.");
+                }
+                
+                if (string.IsNullOrWhiteSpace(item.DiscountType))
+                {
+                    result.Errors.Add($"Item {item.ProductId}: discount type must be specified.");
+                }                    
+            }            
         }
     }
 }
