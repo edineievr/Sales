@@ -95,6 +95,11 @@ namespace Sales.Domain.Orders.Entities
 
         public void ApplyOrderDiscount(Discount discount)
         {
+            if (_items.Count == 0)
+            {
+                throw new OrderWithoutItemsException();
+            }
+
             EnsureIsEditable();
             EnsureNoItemsHasDiscount();
 
@@ -111,7 +116,7 @@ namespace Sales.Domain.Orders.Entities
             item.ApplyDiscountInternal(discount);
         }
 
-        public void RemoveDiscount()
+        public void RemoveOrderDiscount()
         {
             EnsureIsEditable();
             

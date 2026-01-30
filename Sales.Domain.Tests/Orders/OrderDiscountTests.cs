@@ -10,16 +10,15 @@ namespace Sales.Tests.Unit.Orders
     public class OrderDiscountTests
     {
         [Test]
-        public void When_ApplyingDiscount_Should_AssociateDiscountToOrder()
+        public void When_ApplyingDiscountWithNoOrderItems_Should_ThrowException()
         {
             var order = new Order();
             var discount = new Discount(20m, DiscountType.FixedAmount);
 
-            order.ApplyOrderDiscount(discount);
-
-            order.Discount.ShouldNotBeNull();
-            order.Discount.Value.ShouldBe(20m);
-            order.Discount.Type.ShouldBe(DiscountType.FixedAmount);
+            Should.Throw<OrderWithoutItemsException>(() =>
+            {
+                order.ApplyOrderDiscount(discount);
+            });
         }
 
         [Test]
@@ -67,19 +66,6 @@ namespace Sales.Tests.Unit.Orders
         }
 
         [Test]
-        public void When_RemovingDiscount_Should_RemoveDiscountFromOrder()
-        {
-            var order = new Order();
-
-            var discount = new Discount(20m, DiscountType.FixedAmount);
-            order.ApplyOrderDiscount(discount);
-
-            order.RemoveDiscount();
-
-            order.Discount.ShouldBeNull();
-        }
-
-        [Test]
         public void When_RemovingDiscount_FromNonEditableOrder_Should_ThrowException()
         {
             var order = new Order();
@@ -93,7 +79,7 @@ namespace Sales.Tests.Unit.Orders
 
             Should.Throw<OrderIsNotEditableException>(() =>
             {
-                order.RemoveDiscount();
+                order.RemoveOrderDiscount();
             });
         }
 
@@ -121,8 +107,10 @@ namespace Sales.Tests.Unit.Orders
             var order = new Order();
             order.AddItem(1L, 100m, 1m);
             order.AddItem(2L, 50m, 2m);
+
             var orderDiscount = new Discount(20m, DiscountType.FixedAmount);
             order.ApplyOrderDiscount(orderDiscount);
+
             var itemDiscount = new Discount(10m, DiscountType.Percentage);
 
             Should.Throw<OrderDiscountConflictException>(() =>

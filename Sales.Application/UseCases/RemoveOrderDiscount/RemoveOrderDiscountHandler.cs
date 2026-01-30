@@ -15,7 +15,7 @@ namespace Sales.Application.UseCases.RemoveOrderDiscount
         {
             var order = _repository.GetById(command.OrderId) ?? throw new OrderNotFoundException(command.OrderId);
 
-            order.RemoveDiscount();
+            order.RemoveOrderDiscount();
 
             _repository.UpdateOrder(order);
 
