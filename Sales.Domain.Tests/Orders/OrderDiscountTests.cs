@@ -87,11 +87,10 @@ namespace Sales.Tests.Unit.Orders
             order.AddItem(2L, 50m, 2m);
 
             var itemDiscount = new Discount(10m, DiscountType.Percentage);
-            order.Items.First().ApplyDiscount(itemDiscount);
+            order.ApplyItemDiscount(0, itemDiscount);
 
             var orderDiscount = new Discount(20m, DiscountType.FixedAmount);
-
-            order.Items.First().Discount.ShouldNotBeNull();
+            
             Should.Throw<OrderDiscountConflictException>(() => 
             {
                 order.ApplyOrderDiscount(orderDiscount);

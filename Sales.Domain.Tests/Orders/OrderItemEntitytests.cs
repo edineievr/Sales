@@ -45,5 +45,18 @@ namespace Sales.Tests.Unit.Orders
                 var orderItem = new OrderItem(invalidProductId, unitPrice, quantity);
             });
         }
+
+        [Test]
+        public void When_CalculatingTotalValue_WithoutDiscount_Should_ReturnGrossPrice()
+        {
+            var productId = 1L;
+            var quantity = 3m;
+            var unitPrice = 15m;
+
+            var orderItem = new OrderItem(productId, quantity, unitPrice);
+
+            orderItem.CalculateGrossPrice().ShouldBe(45m);
+            orderItem.CalculateTotalValue().ShouldBe(45m);
+        }
     }
 }

@@ -44,7 +44,7 @@ namespace Sales.Domain.Orders.Entities
         {
             EnsureIsEditable();
 
-            var item = _items.FirstOrDefault(item => item.Id == idItem) ?? throw new OrderItemNotFoundException(idItem);
+            var item = GetItem(idItem) ?? throw new OrderItemNotFoundException(idItem);
 
             _items.Remove(item);
         }
@@ -127,9 +127,12 @@ namespace Sales.Domain.Orders.Entities
             return total > 0 ? total : throw new DiscountExceedsOrderValueException(Discount.Value);
         }
 
-        private bool EnsureNoItemsHasDiscount()
+        private void EnsureNoItemsHasDiscount()
         {
-            return _items.Any(item => item.HasDiscount());
+            if (_items.Any(item => item.HasDiscount()))
+            {
+                throw new OrderDiscountConflictException();
+            }
         }
 
         private void EnsureOrderHasNoDiscount()

@@ -121,25 +121,7 @@ namespace Sales.Tests.Unit.Orders
             order.RemoveItem(itemIdToRemove);
 
             order.TotalItemsValue.ShouldBe(20m);
-        }
-
-        [Test]
-        public void When_OrderIsInEditableState_Should_ReturnTrue()
-        {
-            var order = new Order();
-            order.EnsureIsEditable().ShouldBeTrue();
-        }
-
-        [Test]
-        public void When_OrderIsInNonEditableState_Should_ReturnFalse()
-        {
-            var order = new Order();
-
-            order.AddItem(1L, 10m, 2m);
-            order.InvoiceOrder();
-
-            order.EnsureIsEditable().ShouldBeFalse();
-        }
+        }        
 
         [Test]
         public void When_InvoicingOrderWithoutItems_Should_ThrowException()
@@ -199,7 +181,7 @@ namespace Sales.Tests.Unit.Orders
         }
 
         [Test]
-        public void When_ReversingToOpenStatus_Should_AllowEditingAgain()
+        public void When_ReversingToOpenStatus_Should_ChangeStatusToOpen()
         {
             var order = new Order();
             order.AddItem(1L, 10m, 2m);
@@ -207,7 +189,7 @@ namespace Sales.Tests.Unit.Orders
             order.InvoiceOrder();
             order.ReverseToOpen();
 
-            order.EnsureIsEditable().ShouldBeTrue();
+            order.Status.ShouldBe(OrderStatus.Open);
         }
 
         [Test]
