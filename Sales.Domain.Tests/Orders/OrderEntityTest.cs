@@ -1,5 +1,6 @@
 using Sales.Domain.Orders.Entities;
 using Sales.Domain.Orders.Enums;
+using Sales.Domain.Orders.Exceptions;
 using Shouldly;
 
 namespace Sales.Tests.Unit.Orders
@@ -91,6 +92,19 @@ namespace Sales.Tests.Unit.Orders
             order.CancelationDate.ShouldNotBeNull();
             order.CancelationDate.Value.ShouldBeGreaterThanOrEqualTo(beforeCancelation);
             order.CancelationDate.Value.ShouldBeLessThanOrEqualTo(afterCancelation);
+        }
+
+        [Test]
+        public void When_CancelOrderAlreadyCanceledOrder_Should_ThrowException()
+        {
+            var order = new Order();
+
+            order.CancelOrder();
+
+            Should.Throw<OrderIsNotCancelableException>(() =>
+            {
+                order.CancelOrder();
+            });
         }
     }
 }
