@@ -21,12 +21,14 @@ namespace Sales.Domain.Orders.ValueObjects
 
         public decimal ApplyDiscount(decimal amount)
         {
-            return Type switch
+            var discountedAmount = Type switch
             {
                 DiscountType.Percentage => amount - (amount * (Value / 100)),
                 DiscountType.FixedAmount => amount - Value,
                 _ => amount
             };
+
+            return discountedAmount >= 0 ? discountedAmount : throw new DiscountExceedsAmountException(Value);
         }
     }
 }

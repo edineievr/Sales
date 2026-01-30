@@ -19,3 +19,5 @@ Validator valida dados.
 Domínio valida regras.
 Construtor garante existência válida.
 Métodos garantem transições válidas.
+State validation happens when state is created or changed
+Calculations assume state is already valid

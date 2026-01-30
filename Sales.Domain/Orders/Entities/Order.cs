@@ -13,7 +13,7 @@ namespace Sales.Domain.Orders.Entities
         public DateTime? InvoiceDate { get; private set; }
         public DateTime? CancelationDate { get; private set; }
         public decimal TotalItemsValue => _items.Sum(item => item.TotalValue);
-        public decimal TotalOrderValue => CalculateTotalOrderValue();
+        public decimal TotalOrderValue => CalculateTotalOrderValue();//ToDo: Add validations to ensure values greater than zero
         public Discount? Discount { get; private set; }
         public OrderStatus Status { get; private set; }
 
@@ -122,9 +122,7 @@ namespace Sales.Domain.Orders.Entities
         {
             var total = TotalItemsValue;
 
-            total = Discount != null ? Discount.ApplyDiscount(total) : total;
-
-            return total > 0 ? total : throw new DiscountExceedsOrderValueException(Discount.Value);
+            return Discount is null ? total : Discount.ApplyDiscount(total);
         }
 
         private void EnsureNoItemsHasDiscount()

@@ -60,7 +60,7 @@ namespace Sales.Tests.Unit.Orders
             var discount = new Discount(210m, DiscountType.FixedAmount); // Flat discount: 210
             order.ApplyOrderDiscount(discount);
 
-            Should.Throw<DiscountExceedsOrderValueException>(() => 
+            Should.Throw<DiscountExceedsAmountException>(() =>
             {
                 var total = order.TotalOrderValue;
             });
@@ -80,6 +80,24 @@ namespace Sales.Tests.Unit.Orders
         }
 
         [Test]
+        public void When_RemovingDiscount_FromNonEditableOrder_Should_ThrowException()
+        {
+            var order = new Order();
+
+            order.AddItem(1L, 100m, 1m);
+
+            var discount = new Discount(20m, DiscountType.FixedAmount);
+
+            order.ApplyOrderDiscount(discount);
+            order.InvoiceOrder();
+
+            Should.Throw<OrderIsNotEditableException>(() =>
+            {
+                order.RemoveDiscount();
+            });
+        }
+
+        [Test]
         public void When_ApplyingOrderDiscount_WithItemLevelDiscount_Should_ThrowException()
         {
             var order = new Order();
@@ -90,10 +108,26 @@ namespace Sales.Tests.Unit.Orders
             order.ApplyItemDiscount(0, itemDiscount);
 
             var orderDiscount = new Discount(20m, DiscountType.FixedAmount);
-            
-            Should.Throw<OrderDiscountConflictException>(() => 
+
+            Should.Throw<OrderDiscountConflictException>(() =>
             {
                 order.ApplyOrderDiscount(orderDiscount);
+            });
+        }
+
+        [Test]
+        public void When_ApplyingItemLevelDiscount_WithOrderLevelDiscount_Should_ThrowException()
+        {
+            var order = new Order();
+            order.AddItem(1L, 100m, 1m);
+            order.AddItem(2L, 50m, 2m);
+            var orderDiscount = new Discount(20m, DiscountType.FixedAmount);
+            order.ApplyOrderDiscount(orderDiscount);
+            var itemDiscount = new Discount(10m, DiscountType.Percentage);
+
+            Should.Throw<OrderDiscountConflictException>(() =>
+            {
+                order.ApplyItemDiscount(0, itemDiscount);
             });
         }
     }

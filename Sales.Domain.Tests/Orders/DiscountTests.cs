@@ -64,5 +64,19 @@ namespace Sales.Tests.Unit.Orders
 
             discountedAmount.ShouldBe(170m);
         }
+
+        [Test]
+        public void When_ApplyingDiscount_ExceedingAmount_Should_ThrowException()
+        {
+            var discountValue = 250m; // flat discount: 250
+
+            var discount = new Discount(discountValue, DiscountType.FixedAmount);
+            var amount = 200m;
+
+            Should.Throw<DiscountExceedsAmountException>(() =>
+            {
+                var discountedAmount = discount.ApplyDiscount(amount);
+            });
+        }
     }
 }
