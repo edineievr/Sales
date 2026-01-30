@@ -25,7 +25,7 @@ namespace Sales.Application.UseCases.ApplyOrderDiscount
 
             var discount = new Discount(command.DiscountValue, discountType);
 
-            order.SetDiscount(discount);
+            order.ApplyOrderDiscount(discount);
 
             _repository.UpdateOrder(order);
 

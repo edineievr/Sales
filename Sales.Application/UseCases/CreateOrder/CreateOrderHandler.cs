@@ -56,7 +56,7 @@ namespace Sales.Application.UseCases.CreateOrder
 
                 var discount = DiscountParser.Parse(command.DiscountValue.Value, command.DiscountType);
 
-                order.SetDiscount(discount);
+                order.ApplyOrderDiscount(discount);
             }
 
             _repository.InsertOrder(order);

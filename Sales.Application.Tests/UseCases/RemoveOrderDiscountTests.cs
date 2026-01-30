@@ -24,7 +24,7 @@ namespace Sales.Application.Tests.UseCases
 
             order.AddItem(1L, 50m, 5m);
 
-            order.SetDiscount(discount);            
+            order.ApplyOrderDiscount(discount);            
 
             order.TotalItemsValue.ShouldBe(250m);
             order.TotalOrderValue.ShouldBe(225m); // 10% discount applied

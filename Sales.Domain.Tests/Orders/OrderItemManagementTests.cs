@@ -127,7 +127,7 @@ namespace Sales.Tests.Unit.Orders
         public void When_OrderIsInEditableState_Should_ReturnTrue()
         {
             var order = new Order();
-            order.IsEditable().ShouldBeTrue();
+            order.EnsureIsEditable().ShouldBeTrue();
         }
 
         [Test]
@@ -138,7 +138,7 @@ namespace Sales.Tests.Unit.Orders
             order.AddItem(1L, 10m, 2m);
             order.InvoiceOrder();
 
-            order.IsEditable().ShouldBeFalse();
+            order.EnsureIsEditable().ShouldBeFalse();
         }
 
         [Test]
@@ -207,7 +207,7 @@ namespace Sales.Tests.Unit.Orders
             order.InvoiceOrder();
             order.ReverseToOpen();
 
-            order.IsEditable().ShouldBeTrue();
+            order.EnsureIsEditable().ShouldBeTrue();
         }
 
         [Test]

@@ -36,7 +36,7 @@ namespace Sales.Domain.Orders.Entities
             UnitPrice = unitPrice;
         }
 
-        public void ApplyDiscount(Discount discount)//todo: add validation to discounts
+        internal void ApplyDiscountInternal(Discount discount)//todo: add validation to discounts
         {
             Discount = discount;
         }

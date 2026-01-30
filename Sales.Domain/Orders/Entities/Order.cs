@@ -26,16 +26,14 @@ namespace Sales.Domain.Orders.Entities
 
         public void AddItem(long productId, decimal unitPrice, decimal quantity, Discount? discount = null)
         {
-            if (!IsEditable())
-            {
-                throw new OrderIsNotEditableException(Status);
-            }
+            EnsureIsEditable();
+            EnsureOrderHasNoDiscount(); 
 
             var item = new OrderItem(productId, unitPrice, quantity);
 
             if (discount != null)
             {
-                item.ApplyDiscount(discount);
+                item.ApplyDiscountInternal(discount);
             }                
 
             _items.Add(item);
@@ -44,27 +42,25 @@ namespace Sales.Domain.Orders.Entities
 
         public void RemoveItem(long idItem)
         {
-            if (!IsEditable())
-            {
-                throw new OrderIsNotEditableException(Status);
-            }
+            EnsureIsEditable();
 
             var item = _items.FirstOrDefault(item => item.Id == idItem) ?? throw new OrderItemNotFoundException(idItem);
 
             _items.Remove(item);
         }
 
-        public bool IsEditable()
+        private void EnsureIsEditable()
         {
-            return Status == OrderStatus.Open;
+            if (Status != OrderStatus.Open)
+            {
+                throw new OrderIsNotEditableException(Status);
+            }
+                
         }
 
         public void InvoiceOrder()
         {
-            if (!IsEditable())
-            {
-                throw new OrderIsNotEditableException(Status);
-            }
+            EnsureIsEditable();
 
             if (_items.Count == 0)
             {
@@ -97,28 +93,28 @@ namespace Sales.Domain.Orders.Entities
             CancelationDate = DateTime.UtcNow;
         }
 
-        public void SetDiscount(Discount discount)
+        public void ApplyOrderDiscount(Discount discount)
         {
-            if (!IsEditable())
-            {
-                throw new OrderIsNotEditableException(Status);
-            }
-
-            if (HasItemLevelDiscounts())
-            {
-                throw new OrderDiscountConflictException();
-            }
+            EnsureIsEditable();
+            EnsureNoItemsHasDiscount();
 
             Discount = discount;
         }
 
+        public void ApplyItemDiscount(long itemId, Discount discount)
+        {
+            EnsureIsEditable();
+            EnsureOrderHasNoDiscount();
+            
+            var item = GetItem(itemId);
+            
+            item.ApplyDiscountInternal(discount);
+        }
+
         public void RemoveDiscount()
         {
-            if (!IsEditable())
-            {
-                throw new OrderIsNotEditableException(Status);
-            }
-
+            EnsureIsEditable();
+            
             Discount = null;
         }
 
@@ -131,9 +127,24 @@ namespace Sales.Domain.Orders.Entities
             return total > 0 ? total : throw new DiscountExceedsOrderValueException(Discount.Value);
         }
 
-        public bool HasItemLevelDiscounts()
+        private bool EnsureNoItemsHasDiscount()
         {
             return _items.Any(item => item.HasDiscount());
-        }        
+        }
+
+        private void EnsureOrderHasNoDiscount()
+        {
+            if (Discount != null)
+            {
+                throw new OrderDiscountConflictException();
+            }
+        }
+        
+        private OrderItem GetItem(long itemId)
+        {
+            var item = _items.FirstOrDefault(orderItem => orderItem.Id == itemId);
+
+            return item ?? throw new OrderItemNotFoundException(itemId);
+        }
     }
 }

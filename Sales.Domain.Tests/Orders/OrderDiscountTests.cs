@@ -15,7 +15,7 @@ namespace Sales.Tests.Unit.Orders
             var order = new Order();
             var discount = new Discount(20m, DiscountType.FixedAmount);
 
-            order.SetDiscount(discount);
+            order.ApplyOrderDiscount(discount);
 
             order.Discount.ShouldNotBeNull();
             order.Discount.Value.ShouldBe(20m);
@@ -30,7 +30,7 @@ namespace Sales.Tests.Unit.Orders
             order.AddItem(2L, 30m, 1m); // Total: 30
 
             var discount = new Discount(15m, DiscountType.FixedAmount); // Flat discount: 15
-            order.SetDiscount(discount);
+            order.ApplyOrderDiscount(discount);
 
             order.TotalItemsValue.ShouldBe(130m);
             order.TotalOrderValue.ShouldBe(115m);
@@ -44,7 +44,7 @@ namespace Sales.Tests.Unit.Orders
             order.AddItem(2L, 50m, 2m);  // Total: 100
 
             var discount = new Discount(10m, DiscountType.Percentage); // 10% discount
-            order.SetDiscount(discount);
+            order.ApplyOrderDiscount(discount);
 
             order.TotalItemsValue.ShouldBe(200m);
             order.TotalOrderValue.ShouldBe(180m);
@@ -58,7 +58,7 @@ namespace Sales.Tests.Unit.Orders
             order.AddItem(2L, 50m, 2m);  // Total: 100
 
             var discount = new Discount(210m, DiscountType.FixedAmount); // Flat discount: 210
-            order.SetDiscount(discount);
+            order.ApplyOrderDiscount(discount);
 
             Should.Throw<DiscountExceedsOrderValueException>(() => 
             {
@@ -72,7 +72,7 @@ namespace Sales.Tests.Unit.Orders
             var order = new Order();
 
             var discount = new Discount(20m, DiscountType.FixedAmount);
-            order.SetDiscount(discount);
+            order.ApplyOrderDiscount(discount);
 
             order.RemoveDiscount();
 
@@ -94,7 +94,7 @@ namespace Sales.Tests.Unit.Orders
             order.Items.First().Discount.ShouldNotBeNull();
             Should.Throw<OrderDiscountConflictException>(() => 
             {
-                order.SetDiscount(orderDiscount);
+                order.ApplyOrderDiscount(orderDiscount);
             });
         }
     }

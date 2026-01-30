@@ -1,5 +1,6 @@
 ﻿using Sales.Application.Contracts.Repositories;
 using Sales.Domain.Orders.Entities;
+using Sales.Domain.Orders.Exceptions;
 
 namespace Sales.Application.Tests.FakeRepositories
 {
@@ -32,7 +33,7 @@ namespace Sales.Application.Tests.FakeRepositories
             var index = _orders.FindIndex(o => o.Id == order.Id);
 
             if (index == -1)
-                throw new InvalidOperationException($"Order {order.Id} not found");//todo: Add a custom exception for this case
+                throw new OrderNotFoundException(order.Id);
 
             _orders[index] = order;
         }
