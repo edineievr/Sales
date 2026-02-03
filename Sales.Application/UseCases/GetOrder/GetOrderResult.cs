@@ -27,6 +27,7 @@ namespace Sales.Application.UseCases.GetOrder
             DiscountType = null;
             InvoiceDate = null;
             CancelationDate = null;
+            Status = string.Empty;
         }
     }
 }

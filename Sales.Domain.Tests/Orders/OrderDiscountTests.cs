@@ -102,6 +102,22 @@ namespace Sales.Tests.Unit.Orders
         }
 
         [Test]
+        public void When_RemovingOrderDiscount_Should_UpdateTotalOrderValue()
+        {
+            var order = new Order();
+            order.AddItem(1L, 100m, 1m); // Total: 100
+            order.AddItem(2L, 50m, 2m);  // Total: 100
+
+            var discount = new Discount(20m, DiscountType.FixedAmount); // Flat discount: 20
+            order.ApplyOrderDiscount(discount);
+            order.TotalOrderValue.ShouldBe(180m);
+
+            order.RemoveOrderDiscount();
+
+            order.TotalOrderValue.ShouldBe(200m);
+        }        
+
+        [Test]
         public void When_ApplyingItemLevelDiscount_WithOrderLevelDiscount_Should_ThrowException()
         {
             var order = new Order();

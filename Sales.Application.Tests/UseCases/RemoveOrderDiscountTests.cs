@@ -56,7 +56,6 @@ namespace Sales.Application.Tests.UseCases
             {
                 handler.Handle(command);
             });
-
         }
     }
 }
