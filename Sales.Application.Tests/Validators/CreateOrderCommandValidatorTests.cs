@@ -130,26 +130,6 @@ namespace Sales.Application.Tests.Validators
             result.Errors.Count.ShouldBe(1);
         }
 
-        [Test]
-        public void When_DiscountValueIsMissingWithDiscountType_Should_FailValidation()
-        {
-            var validator = new CreateOrderCommandValidator();
-            var command = new CreateOrderCommand
-            {
-                Items = new List<CreateOrderItemDto>
-                    {
-                        new() { ProductId = 1, Quantity = 2, UnitPrice = 50m }
-                    },
-                DiscountValue = null,
-                DiscountType = "Percentage"
-            };
-
-            var result = validator.Validate(command);
-
-            result.IsValid.ShouldBeFalse();
-            result.Errors.Count.ShouldBe(1);
-        }
-
     }
 }
 

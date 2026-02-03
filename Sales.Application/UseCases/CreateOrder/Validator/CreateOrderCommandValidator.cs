@@ -13,7 +13,7 @@
         {
             var validator = new ValidatorResult();
 
-            if (command.Items == null || command.Items.Count <= 0)
+            if (command.Items.Count <= 0)
             {
                 validator.Errors.Add("Order must contain at least one item.");
                 return validator;
