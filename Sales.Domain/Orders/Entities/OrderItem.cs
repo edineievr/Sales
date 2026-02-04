@@ -1,5 +1,4 @@
-﻿using Sales.Domain.Exceptions;
-using Sales.Domain.Orders.Exceptions;
+﻿using Sales.Domain.Orders.Exceptions;
 using Sales.Domain.Orders.ValueObjects;
 
 namespace Sales.Domain.Orders.Entities
