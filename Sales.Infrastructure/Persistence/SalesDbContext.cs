@@ -1,8 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Sales.Infrastructure.Persistence.Mappings;
 
 namespace Sales.Infrastructure.Persistence
 {

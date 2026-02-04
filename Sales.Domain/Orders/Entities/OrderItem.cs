@@ -35,12 +35,12 @@ namespace Sales.Domain.Orders.Entities
             UnitPrice = unitPrice;
         }
 
-        internal void ApplyDiscountInternal(Discount discount)//todo: add validation to discounts
+        internal void ApplyDiscountInternal(Discount discount)
         {
             Discount = discount;
         }
 
-        public void RemoveDiscount()
+        public void RemoveDiscountInternal()
         {
             Discount = null;
         }
@@ -49,7 +49,7 @@ namespace Sales.Domain.Orders.Entities
         {
             var grossPrice = CalculateGrossPrice();
 
-            return Discount is null ? grossPrice : Discount.ApplyDiscount(grossPrice);
+            return Discount?.ApplyDiscount(grossPrice) ?? grossPrice;
         }
 
         public decimal CalculateGrossPrice()

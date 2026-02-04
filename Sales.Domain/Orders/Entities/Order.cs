@@ -12,8 +12,8 @@ namespace Sales.Domain.Orders.Entities
         public DateTime CreationDate { get; private set; }
         public DateTime? InvoiceDate { get; private set; }
         public DateTime? CancelationDate { get; private set; }
-        public decimal TotalItemsValue => _items.Sum(item => item.TotalValue);
-        public decimal TotalOrderValue => CalculateTotalOrderValue();//ToDo: Add validations to ensure values greater than zero
+        public decimal TotalItemsValue => _items.Sum(item => item.TotalValue);//ToDo: move this to a specific method
+        public decimal TotalOrderValue { get; private set; }
         public Discount? Discount { get; private set; }
         public OrderStatus Status { get; private set; }
 
@@ -116,6 +116,15 @@ namespace Sales.Domain.Orders.Entities
             item.ApplyDiscountInternal(discount);
         }
 
+        public void RemoveItemDiscount(long idItem)
+        {
+            EnsureIsEditable();
+            
+            var item = GetItem(idItem);
+            
+            item.RemoveDiscountInternal();
+        }
+
         public void RemoveOrderDiscount()
         {
             EnsureIsEditable();
@@ -123,11 +132,26 @@ namespace Sales.Domain.Orders.Entities
             Discount = null;
         }
 
-        private decimal CalculateTotalOrderValue()
+        private decimal CalculateTotal()
         {
             var total = TotalItemsValue;
 
-            return Discount is null ? total : Discount.ApplyDiscount(total);
+            if (Discount != null)
+            {
+                total = Discount.ApplyDiscount(total);
+            }
+
+            if (total <= 0)
+            {
+                throw new OrderTotalMustBeGreaterThanZeroException(total);
+            }
+            
+            return total;
+        }
+
+        private void RecalculateTotal()
+        {
+            TotalOrderValue = CalculateTotal();
         }
 
         private void EnsureNoItemsHasDiscount()
