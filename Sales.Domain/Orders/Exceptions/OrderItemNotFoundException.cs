@@ -1,6 +1,4 @@
-﻿using Sales.Domain.Exceptions;
-
-namespace Sales.Domain.Orders.Exceptions
+﻿namespace Sales.Domain.Orders.Exceptions
 {
     public class OrderItemNotFoundException : DomainException
     {
