@@ -19,10 +19,10 @@ namespace Sales.Application.Tests.UseCases
             var handler = new RemoveOrderDiscountHandler(repository);
 
             var order = new Order();
+                        
+            order.AddItem(1L, 50m, 5m);
 
             var discount = new Discount(10, DiscountType.Percentage);
-
-            order.AddItem(1L, 50m, 5m);
 
             order.ApplyOrderDiscount(discount);            
 

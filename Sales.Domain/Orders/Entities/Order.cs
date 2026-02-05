@@ -37,6 +37,8 @@ namespace Sales.Domain.Orders.Entities
             }                
 
             _items.Add(item);
+
+            RecalculateTotal();
         }
 
 
@@ -104,6 +106,7 @@ namespace Sales.Domain.Orders.Entities
             EnsureNoItemsHasDiscount();
 
             Discount = discount;
+            RecalculateTotal();
         }
 
         public void ApplyItemDiscount(long itemId, Discount discount)
@@ -130,6 +133,7 @@ namespace Sales.Domain.Orders.Entities
             EnsureIsEditable();
             
             Discount = null;
+            RecalculateTotal();
         }
 
         private decimal CalculateTotal()
@@ -139,7 +143,7 @@ namespace Sales.Domain.Orders.Entities
             if (Discount != null)
             {
                 total = Discount.ApplyDiscount(total);
-            }
+            }            
 
             if (total <= 0)
             {

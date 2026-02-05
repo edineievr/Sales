@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Sales.Infrastructure.Repositories
 {
-    public class OrderRepository : IOrderRepository
+    public class OrderRepository
     {
         //
     }

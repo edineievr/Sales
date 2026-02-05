@@ -28,7 +28,12 @@ namespace Sales.Domain.Orders.ValueObjects
                 _ => amount
             };
 
-            return discountedAmount >= 0 ? discountedAmount : throw new DiscountExceedsAmountException(Value);
+            if (discountedAmount < 0)
+            {
+                throw new DiscountExceedsAmountException(Value);
+            }
+
+            return discountedAmount;
         }
     }
 }

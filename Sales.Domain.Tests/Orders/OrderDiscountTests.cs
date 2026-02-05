@@ -50,19 +50,18 @@ namespace Sales.Tests.Unit.Orders
         }
 
         [Test]
-        public void When_CalculatingTotalOrderValue_WithDiscountExceedingTotal_Should_ThrowException()
+        public void When_ApplyingOrderDiscount_WithDiscountReducingTotalToZero_Should_ThrowException()
         {
             var order = new Order();
             order.AddItem(1L, 100m, 1m); // Total: 100
             order.AddItem(2L, 50m, 2m);  // Total: 100
 
-            var discount = new Discount(210m, DiscountType.FixedAmount); // Flat discount: 210
-            order.ApplyOrderDiscount(discount);
+            var discount = new Discount(200, DiscountType.FixedAmount); // Flat discount: 200
 
-            Should.Throw<DiscountExceedsAmountException>(() =>
+            Should.Throw<OrderTotalMustBeGreaterThanZeroException>(() =>
             {
-                var total = order.TotalOrderValue;
-            });
+                order.ApplyOrderDiscount(discount);
+            });            
         }
 
         [Test]
