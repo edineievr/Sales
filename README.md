@@ -8,7 +8,7 @@ Esse projeto existe como objeto de estudo para aprimorar conhecimentos em modela
 
 
 
-O projeto, atualmente, está divido em 2 camadas (Domain Application). Foram aplicados conceitos baseados em DDD, Clean Architecture e Principios de SOLID.
+O projeto, atualmente, está divido em 2 camadas (Domain e Application). Foram aplicados conceitos baseados em DDD, Clean Architecture e Principios de SOLID.
 
 
 
