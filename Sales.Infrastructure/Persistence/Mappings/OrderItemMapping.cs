@@ -19,5 +19,11 @@ public class OrderItemMapping : IEntityTypeConfiguration<OrderItem>
                .HasPrecision(10, 2);
         builder.Property(item => item.UnitPrice).IsRequired();
         builder.HasIndex(item => item.OrderId);
+
+        builder.OwnsOne(item => item.Discount, discount =>
+        {
+            discount.Property(discount => discount.Value).HasColumnType("decimal(18,2)").HasColumnName("discount_value");
+            discount.Property(discount => discount.Type).HasConversion<string>().HasColumnName("discount_type");
+        });
     }
 }

@@ -16,10 +16,15 @@ namespace Sales.Infrastructure.Persistence.Mappings
             builder.HasKey(order => order.Id);
             builder.Property(order => order.Id).ValueGeneratedOnAdd();
             
-            builder.Property(order => order.Status).IsRequired();
+            builder.Property(order => order.Status).HasConversion<string>().IsRequired();
             builder.Property(order => order.CreationDate).IsRequired();
             builder.Property(order => order.InvoiceDate);
             builder.Property(order => order.CancelationDate);
+            builder.OwnsOne(order=> order.Discount, discount => 
+            {             
+                discount.Property(discount => discount.Value).HasColumnType("decimal(18,2)").HasColumnName("discount_value");
+                discount.Property(discount => discount.Type).HasConversion<string>().HasColumnName("discount_type");
+            });
             
             builder.HasMany(order => order.Items)
                    .WithOne()
