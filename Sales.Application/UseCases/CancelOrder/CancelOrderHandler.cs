@@ -20,7 +20,7 @@ namespace Sales.Application.UseCases.CancelOrder
 
             order.CancelOrder();
 
-            _repository.UpdateOrder(order);
+            _repository.Update(order);
         }
     }
 }

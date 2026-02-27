@@ -59,7 +59,7 @@ namespace Sales.Application.UseCases.CreateOrder
                 order.ApplyOrderDiscount(discount);
             }
 
-            _repository.InsertOrder(order);
+            _repository.Insert(order);
         }
     }
 }

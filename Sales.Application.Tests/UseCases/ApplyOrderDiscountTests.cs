@@ -26,7 +26,7 @@ namespace Sales.Application.Tests.UseCases
             order.TotalItemsValue.ShouldBe(100m);
             order.TotalOrderValue.ShouldBe(100m);
 
-            repository.InsertOrder(order);
+            repository.Insert(order);
 
             var handler = new ApplyOrderDiscountHandler(repository);
 
@@ -81,7 +81,7 @@ namespace Sales.Application.Tests.UseCases
             var order = new Order();
             order.AddItem(1, 100m, 1);
 
-            repository.InsertOrder(order);
+            repository.Insert(order);
 
             var handler = new ApplyOrderDiscountHandler(repository);
 

@@ -27,7 +27,7 @@ namespace Sales.Application.UseCases.ApplyOrderDiscount
 
             order.ApplyOrderDiscount(discount);
 
-            _repository.UpdateOrder(order);
+            _repository.Update(order);
 
             return new ApplyOrderDiscountResult { OrderId = order.Id };
         }

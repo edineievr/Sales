@@ -5,9 +5,9 @@ namespace Sales.Application.Contracts.Repositories
     public interface IOrderRepository
     {
         public Order GetById(long id);
-        public IReadOnlyCollection<Order> GetAll();
-        public void UpdateOrder(Order order);
-        public void DeleteOrder(long id);
-        public void InsertOrder(Order order);
+        public List<Order> GetAll();
+        public void Update(Order order);
+        public void Delete(Order order);
+        public void Insert(Order order);
     }
 }

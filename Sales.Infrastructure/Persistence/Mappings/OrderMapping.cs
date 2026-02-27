@@ -26,10 +26,13 @@ namespace Sales.Infrastructure.Persistence.Mappings
                 discount.Property(discount => discount.Type).HasConversion<string>().HasColumnName("discount_type");
             });
             
-            builder.HasMany(order => order.Items)
+            builder.HasMany<OrderItem>("_items")
                    .WithOne()
                    .HasForeignKey(item => item.OrderId)
                    .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Navigation(order => order.Items)
+                   .UsePropertyAccessMode(PropertyAccessMode.Field);
         }
     }
 }

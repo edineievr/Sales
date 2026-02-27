@@ -29,7 +29,7 @@ namespace Sales.Application.Tests.UseCases
             order.TotalItemsValue.ShouldBe(250m);
             order.TotalOrderValue.ShouldBe(225m); // 10% discount applied
 
-            repository.InsertOrder(order);
+            repository.Insert(order);
 
             var command = new RemoveOrderDiscountCommand { OrderId = order.Id };
 

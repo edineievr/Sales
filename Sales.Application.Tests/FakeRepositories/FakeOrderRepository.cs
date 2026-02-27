@@ -12,13 +12,13 @@ namespace Sales.Application.Tests.FakeRepositories
             _orders = [];
         }
 
-        public IReadOnlyCollection<Order> GetAll()
+        public List<Order> GetAll()
         {
             return _orders;
 
         }
 
-        public void InsertOrder(Order order)
+        public void Insert(Order order)
         {
             _orders.Add(order);
         }
@@ -28,7 +28,7 @@ namespace Sales.Application.Tests.FakeRepositories
             return _orders.FirstOrDefault(order => order.Id == id);
         }
 
-        public void UpdateOrder(Order order)
+        public void Update(Order order)
         {
             var index = _orders.FindIndex(o => o.Id == order.Id);
 
@@ -38,9 +38,9 @@ namespace Sales.Application.Tests.FakeRepositories
             _orders[index] = order;
         }
 
-        public void DeleteOrder(long id)
+        public void Delete(Order order)
         {
-            _orders.RemoveAll(order => order.Id == id);
+            _orders.RemoveAll(o => o.Id == order.Id);
         }
     }
 }

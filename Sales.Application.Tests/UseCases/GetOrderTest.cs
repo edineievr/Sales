@@ -20,7 +20,7 @@ namespace Sales.Application.Tests.UseCases
             order.TotalItemsValue.ShouldBe(100m);
             order.TotalOrderValue.ShouldBe(100m);
 
-            repository.InsertOrder(order);
+            repository.Insert(order);
 
             var handler = new GetOrderHandler(repository);
 

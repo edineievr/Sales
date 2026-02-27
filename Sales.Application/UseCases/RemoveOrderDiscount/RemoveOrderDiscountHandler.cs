@@ -17,7 +17,7 @@ namespace Sales.Application.UseCases.RemoveOrderDiscount
 
             order.RemoveOrderDiscount();
 
-            _repository.UpdateOrder(order);
+            _repository.Update(order);
 
             return new RemoveOrderDiscountResult { OrderId = order.Id };
         }

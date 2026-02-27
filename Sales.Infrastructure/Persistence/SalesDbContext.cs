@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Sales.Domain.Orders.Entities;
 
 namespace Sales.Infrastructure.Persistence
 {
@@ -7,8 +8,9 @@ namespace Sales.Infrastructure.Persistence
 
         public SalesDbContext(DbContextOptions<SalesDbContext> options) : base(options)
         {
-
         }
+
+        public DbSet<Order> Orders { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
