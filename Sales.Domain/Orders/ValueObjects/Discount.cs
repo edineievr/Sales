@@ -8,14 +8,14 @@ namespace Sales.Domain.Orders.ValueObjects
         public decimal Value { get; private set; }
         public DiscountType Type { get; private set; }
 
-        public Discount(decimal discountValue, DiscountType type)
+        public Discount(decimal value, DiscountType type)
         {
-            if (discountValue <= 0)
+            if (value <= 0)
             {
-                throw new InvalidDiscountValueException(discountValue);
+                throw new InvalidDiscountValueException(value);
             }
 
-            Value = discountValue;
+            Value = value;
             Type = type;
         }
 
