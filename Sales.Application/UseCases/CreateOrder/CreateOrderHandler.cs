@@ -21,7 +21,7 @@ namespace Sales.Application.UseCases.CreateOrder
             _validator = new();
         }
 
-        public void Handle(CreateOrderCommand command)//todo: change return type when implement infrastructure
+        public long Handle(CreateOrderCommand command)//todo: change return type when implement infrastructure
         {
             var result = _validator.Validate(command);
 
@@ -60,6 +60,8 @@ namespace Sales.Application.UseCases.CreateOrder
             }
 
             _repository.Insert(order);
+
+            return order.Id;
         }
     }
 }

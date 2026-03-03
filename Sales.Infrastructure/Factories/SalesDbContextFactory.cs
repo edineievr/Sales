@@ -4,8 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Sales.Infrastructure.Persistence;
 using System.IO;
 
-public class SalesDbContextFactory
-    : IDesignTimeDbContextFactory<SalesDbContext>
+public class SalesDbContextFactory : IDesignTimeDbContextFactory<SalesDbContext>
 {
     public SalesDbContext CreateDbContext(string[] args)
     {
