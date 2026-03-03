@@ -41,6 +41,20 @@ namespace Sales.Domain.Orders.Entities
             RecalculateTotal();
         }
 
+        public void UpdateItem(long idItem, long productId, decimal unitPrice, decimal quantity, Discount? discount)
+        {
+            EnsureIsEditable();
+            EnsureOrderHasNoDiscount();
+
+            _ = GetItem(idItem) ?? throw new OrderItemNotFoundException(idItem);
+
+            RemoveItem(idItem);
+
+            AddItem(productId, unitPrice, quantity, discount);
+
+            RecalculateTotal();
+        }
+
 
         public void RemoveItem(long idItem)
         {
